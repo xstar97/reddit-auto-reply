@@ -16,7 +16,10 @@ RUN apk add --no-cache gcc musl-dev && \
 
 #DB
 ENV BOT_STATE=development
-ENV DB_TYPE=sqlite
+ENV DB_TYPE=redis
+ENV REDIS_HOST=localhost
+ENV REDIS_PASSWORD=pass
+ENV REDIS_PORT=6379
 
 # Reddit
 ENV CLIENT_ID=id
@@ -43,9 +46,6 @@ RUN chown kah:kah /config
 
 # Set the non-root user as the user to run the container
 USER kah
-
-# Set the volume to /config
-VOLUME /config
 
 # Run the bot script when the container launches
 CMD ["python3", "bot.py"]
