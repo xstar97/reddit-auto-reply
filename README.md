@@ -7,8 +7,6 @@ version: "3.8"
 services:
   my-service:
     image: ghcr.io/xstar97/reddit-auto-reply:latest
-    ports:
-      - "8000:8000"
     volumes:
       - ./config:/config
     environment:
