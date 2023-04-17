@@ -2,8 +2,17 @@ import logging
 import redis
 from config import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+
 # Define the Redis connection
 redis_conn = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
+
+# Log Redis connection status
+if redis_conn.ping():
+    logging.info("Redis connection established")
+else:
+    logging.error("Failed to establish Redis connection")
 
 def get_redis_commented_submissions():
     """Get submission IDs as a list from Redis."""

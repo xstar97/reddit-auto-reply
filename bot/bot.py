@@ -1,8 +1,6 @@
 import os
 import logging
-import praw
 from config import BOT_STATE
-from database import get_commented_submissions, add_commented_submission
 from reddit import monitor_subreddits
 
 # Set up logging
@@ -16,4 +14,7 @@ if BOT_STATE == "development":
     logging.info("Bot is in development mode. Not running.")
 elif BOT_STATE == "production":
     logging.info("Bot is in production mode. Running.")
-    monitor_subreddits()
+    try:
+        monitor_subreddits()
+    except Exception as e:
+        logging.error("An error occurred while monitoring subreddits: {}".format(e))
