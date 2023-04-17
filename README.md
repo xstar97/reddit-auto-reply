@@ -13,7 +13,9 @@ services:
       - ./config:/config
     environment:
       - BOT_STATE=production
-      - DB_TYPE=sqlite
+      - REDIS_HOST=localhost
+      - REDIS_PASSWORD=password
+      - REDIS_PORT=6379
       - CLIENT_ID=reddit_client_id
       - CLIENT_SECRET=reddit_client_secret
       - USERNAME=REDDIT_USER
