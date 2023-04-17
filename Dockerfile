@@ -27,7 +27,7 @@ ENV USER_AGENT=usr_agent
 ENV SUBREDDITS=subreddit1,subreddit2
 ENV EXCLUDE_USERS=user1,user2
 ENV TRIGGER_WORDS=word1
-ENV COMMENT_TEXT=hello world
+ENV COMMENT_TEXT=hello_world
 ENV COMMENT_WAIT_SECONDS=15
 
 # Set the user and group as environment variables
