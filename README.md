@@ -22,5 +22,5 @@ services:
       - COMMENT_WAIT_SECONDS=10
       - EXCLUDE_USERS=user1,user2 #delim by ,
       - COMMENT_TEXT="Hello world!"
-    restart: always
+    restart: unless-stopped
 ```
