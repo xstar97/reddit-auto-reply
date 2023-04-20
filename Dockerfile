@@ -29,10 +29,8 @@ ENV PGID=1000
 RUN addgroup -g $PGID kah && \
     adduser -D -u $PUID -G kah kah
 
-# Change the ownership of the working directory and start script to the non-root user
+# Change the ownership of the working directory
 RUN chown -R kah:kah /config
-RUN chown kah:kah start.sh
-RUN chmod +x start.sh
 
 # Set the non-root user as the user to run the container
 USER kah
@@ -40,5 +38,5 @@ USER kah
 # Expose the port for the app
 EXPOSE $PORT
 
-# Run the start script when the container launches
-CMD ["start.sh", `${PORT}`]
+# Run the bot script with PM2 and Gunicorn when the container launches
+CMD ["pm2-runtime", "start", "bot.py", "--interpreter", "python3", "--watch", "--name", "bot", "--no-daemon", "--", "gunicorn", "-b", "0.0.0.0:$PORT", "web:web_app"]
