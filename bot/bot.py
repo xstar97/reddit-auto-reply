@@ -1,5 +1,5 @@
 import os,logging,threading,subprocess
-from config import BOT_STATE, PORT
+from config import BOT_STATE
 from reddit import monitor_subreddits
 from web import web_app
 
