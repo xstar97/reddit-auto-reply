@@ -9,8 +9,6 @@ services:
     image: ghcr.io/xstar97/reddit-auto-reply:latest
     ports:
       - "8080:3000"
-    volumes:
-      - ./config:/config
     environment:
       - PORT=3000
       - BOT_STATE=production
@@ -28,4 +26,6 @@ services:
       - EXCLUDE_USERS=user1,user2 #delim by ,
       - COMMENT_TEXT="Hello world!"
     restart: unless-stopped
+```
+=======
 ```
