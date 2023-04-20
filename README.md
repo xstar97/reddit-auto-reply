@@ -27,5 +27,3 @@ services:
       - COMMENT_TEXT="Hello world!"
     restart: unless-stopped
 ```
-=======
-```
