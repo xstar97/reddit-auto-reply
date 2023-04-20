@@ -10,7 +10,6 @@ DB_TYPE = os.getenv("DB_TYPE", "redis")
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
-PORT = int(os.getenv("PORT", 3000))
 
 # Reddit API credentials
 CLIENT_ID = os.environ.get("CLIENT_ID")

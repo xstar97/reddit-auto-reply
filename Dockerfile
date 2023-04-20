@@ -22,7 +22,6 @@ ENV EXCLUDE_USERS=user1,user2
 ENV TRIGGER_WORDS=word1
 ENV COMMENT_TEXT=hello_world
 ENV COMMENT_WAIT_SECONDS=15
-ENV PORT=3000
 
 # Set the user and group as environment variables
 ENV PUID=1000
@@ -40,8 +39,5 @@ RUN chmod +x /config/start.sh
 # Set the non-root user as the user to run the container
 USER kah
 
-# Expose the port for the app
-EXPOSE $PORT
-
 # Run the start script when the container launches
-CMD ["sh", "/config/start.sh", "${PORT}"]
+CMD ["sh", "/config/start.sh"]

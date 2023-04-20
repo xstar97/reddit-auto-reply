@@ -10,7 +10,6 @@ services:
     ports:
       - "8080:3000"
     environment:
-      - PORT=3000
       - BOT_STATE=production
       - REDIS_HOST=localhost
       - REDIS_PASSWORD=password
