@@ -4,7 +4,7 @@ FROM python:3.9-alpine
 WORKDIR /config
 
 # Copy all files from the bot directory into the container
-COPY bot/* ./
+COPY bot/ /config/
 
 # Install system dependencies
 RUN apk update && \
