@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Reddit-Auto-Reply</title>
+    <style>
+      /* Style for the container */
+      .container {
+        max-width: 2500px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Style for the table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      /* Style for the table header */
+      th {
+        background-color: #333;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ccc;
+      }
+
+      /* Style for the table cell */
+      td {
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #b9b9b9;
+        color: #333;
+      }
+
+      /* Style for the body */
+      body {
+        background-color: #222;
+        color: #FFF;
+      }
+
+      /* Style for the refresh button */
+      .refresh-btn {
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align:center;">Reddit-Auto-Reply</h1>
+    <div class="refresh-btn">
+      <button onclick="location.reload()">Refresh</button>
+    </div>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for submission in submissions %}
+          <tr>
+            <td><a href="{{ submission.shortlink }}" target="_blank">{{ submission.id }}</a></td>
+            <td><a href="https://www.reddit.com/user/{{ submission.author }}" target="_blank">{{ submission.author }}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

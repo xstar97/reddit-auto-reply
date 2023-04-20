@@ -1,7 +1,7 @@
-import os
-import logging
-from config import BOT_STATE
+import os,logging,threading,subprocess
+from config import BOT_STATE, PORT
 from reddit import monitor_subreddits
+from web import web_app
 
 # Set up logging
 logging.basicConfig(
@@ -9,12 +9,13 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-# Check if the bot is in development mode
-if BOT_STATE == "development":
-    logging.info("Bot is in development mode. Not running.")
-elif BOT_STATE == "production":
-    logging.info("Bot is in production mode. Running.")
-    try:
-        monitor_subreddits()
-    except Exception as e:
-        logging.error("An error occurred while monitoring subreddits: {}".format(e))
+if __name__ == "__main__":
+    if BOT_STATE == "development":
+        logging.info("Bot is in development mode. Not running.")
+    elif BOT_STATE == "production":
+        logging.info("Bot is in production mode. Running.")
+        try:
+            monitor_thread = threading.Thread(target=monitor_subreddits)
+            monitor_thread.start()
+        except Exception as e:
+            logging.error("An error occurred: {}".format(e))

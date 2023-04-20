@@ -1,26 +1,39 @@
 import logging
 import redis
+import json
 from config import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
 # Define the Redis connection
-redis_conn = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
+try:
+    redis_conn = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
+    # Log Redis connection status
+    if redis_conn.ping():
+        logging.info("Redis connection established")
+    else:
+        logging.error("Failed to establish Redis connection")
+except Exception as e:
+    logging.error(f"Failed to establish Redis connection. Error message: {e}")
+    redis_conn = None
 
-# Log Redis connection status
-if redis_conn.ping():
-    logging.info("Redis connection established")
-else:
-    logging.error("Failed to establish Redis connection")
+def get_redis_submissions():
+    """Get submission IDs, titles and authors as a list of dicts from Redis."""
+    try:
+        submissions = redis_conn.smembers("submissions")
+        submissions = [json.loads(submission_str) for submission_str in submissions]
+        return submissions
+    except Exception as e:
+        logging.error(f"Failed to get submissions from Redis. Error message: {e}")
+        return []
 
-def get_redis_commented_submissions():
-    """Get submission IDs as a list from Redis."""
-    comments = redis_conn.lrange("commented_submissions", 0, -1)
-    comments = [comment.decode() for comment in comments]
-    return comments
-
-def add_redis_commented_submission(submission_id):
-    """Add a submission ID to the list of commented submissions in Redis."""
-    logging.info(f"Adding submission ID to Redis: {submission_id}")
-    redis_conn.rpush("commented_submissions", submission_id)
+def add_redis_submission(submission):
+    """Add a submission ID, title, and author to the list of commented submissions in Redis."""
+    try:
+        submission_data = {"id": submission.id, "author": str(submission.author), "shortlink": submission.shortlink}
+        submission_str = json.dumps(submission_data)
+        logging.info(f"Adding submission to Redis: {submission_str}")
+        redis_conn.sadd("submissions", submission_str)
+    except Exception as e:
+        logging.error(f"Failed to add submission to Redis. Error message: {e}")
