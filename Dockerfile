@@ -41,4 +41,4 @@ USER kah
 EXPOSE $PORT
 
 # Run the start script when the container launches
-CMD ["./start.sh", $PORT]
+CMD ["start.sh", `${PORT}`]
