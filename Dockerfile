@@ -11,7 +11,6 @@ RUN apk update && \
     apk add --no-cache build-base libffi-dev openssl-dev
 
 # Install Python dependencies
-COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Set the environment variables for the bot
