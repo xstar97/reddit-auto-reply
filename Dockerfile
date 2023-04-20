@@ -46,5 +46,5 @@ USER kah
 # Expose the port for the app
 EXPOSE $PORT
 
-# Run the start script with PM2 when the container launches
-CMD ["pm2-runtime", "/config/start.sh", "--watch", "--env", "PORT=$PORT"]
+# Run the start script when the container launches
+CMD ["sh", "/config/start.sh", "${PORT}"]
