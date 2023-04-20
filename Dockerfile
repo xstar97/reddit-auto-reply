@@ -13,6 +13,12 @@ RUN apk update && \
 # Install Python dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
+# Install PM2
+RUN npm install pm2 -g
+
 # Set the environment variables for the bot
 ENV SUBREDDITS=subreddit1,subreddit2
 ENV EXCLUDE_USERS=user1,user2
@@ -40,5 +46,5 @@ USER kah
 # Expose the port for the app
 EXPOSE $PORT
 
-# Run the start script when the container launches
-CMD ["sh", "/config/start.sh", "${PORT}"]
+# Run the start script with PM2 when the container launches
+CMD ["pm2-runtime", "/config/start.sh", "--watch", "--env", "PORT=$PORT"]
