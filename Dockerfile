@@ -31,8 +31,8 @@ RUN addgroup -g $PGID kah && \
 
 # Change the ownership of the working directory and start script to the non-root user
 RUN chown -R kah:kah /config
-RUN chown kah:kah start.sh
-RUN chmod +x start.sh
+RUN chown kah:kah /config/start.sh
+RUN chmod +x /config/start.sh
 
 # Set the non-root user as the user to run the container
 USER kah
@@ -41,4 +41,4 @@ USER kah
 EXPOSE $PORT
 
 # Run the start script when the container launches
-CMD ["sh", "-c", "/config/start.sh", $PORT]
+CMD ["sh", "/config/start.sh", "${PORT}"]
