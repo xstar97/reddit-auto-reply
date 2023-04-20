@@ -41,4 +41,4 @@ USER kah
 EXPOSE $PORT
 
 # Run the start script when the container launches
-ENTRYPOINT ["/bin/bash", "-c","start.sh", `${PORT}`]
+CMD ["sh", "-c", "./start.sh ${PORT}"]
