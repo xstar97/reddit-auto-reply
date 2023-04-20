@@ -3,8 +3,14 @@
 # Set the default port to 3000
 PORT=${1:-3000}
 
-# Start bot process with pm2
-pm2 start bot.py --interpreter=python3 --name reddit-reply-bot
+# Start bot process in the background
+python3 bot.py &
 
-# Start web process with pm2
-pm2 start "gunicorn web:web_app --bind 0.0.0.0:$PORT -w 4" --name reddit-reply-web
+# Save the process ID of the bot process
+BOT_PID=$!
+
+# Start web process in the foreground
+gunicorn web:web_app --bind 0.0.0.0:$PORT -w 4
+
+# Wait for the bot process to finish
+wait $BOT_PID

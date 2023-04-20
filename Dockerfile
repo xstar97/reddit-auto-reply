@@ -16,9 +16,6 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
 
-# Install PM2
-RUN npm install pm2 -g
-
 # Set the environment variables for the bot
 ENV SUBREDDITS=subreddit1,subreddit2
 ENV EXCLUDE_USERS=user1,user2
