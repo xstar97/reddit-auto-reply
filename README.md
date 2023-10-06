@@ -5,7 +5,7 @@ reddit-auto-reply python docker bot
 version: "3.8"
 
 services:
-  my-service:
+  reddit-auto-reply:
     image: ghcr.io/xstar97/reddit-auto-reply:latest
     ports:
       - "8080:3000"
